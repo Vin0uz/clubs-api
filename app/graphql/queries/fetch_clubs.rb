@@ -5,8 +5,7 @@ module Queries
     argument :name, String, required: true
 
     def resolve(name:)
-      #Club.all.order(created_at: :desc)
-      Club.where("name LIKE ?", "%#{name}%")
+      Club.where("similarity(name, ?) > 0.3", name).order(Arel.sql("similarity(name, '#{name}') DESC"))
     end
   end
 end
