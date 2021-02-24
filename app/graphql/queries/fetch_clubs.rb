@@ -5,7 +5,7 @@ module Queries
     argument :name, String, required: true
 
     def resolve(name:)
-      Club.where("similarity(name, ?) > 0.3", name).order(Arel.sql("similarity(name, '#{name}') DESC"))
+      Club.search_by_name(name)
     end
   end
 end
